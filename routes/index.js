@@ -9,7 +9,7 @@ const {
   validateUserInfo,
 } = require("../middlewares/validator");
 
-router.use("/articles", articleItem);
+router.use("/articles", auth, articleItem);
 
 router.use("/users", auth, users);
 
