@@ -15,7 +15,6 @@ mongoose.connect("mongodb://127.0.0.1:27017/newsExplorer_db");
 
 const app = express();
 
-
 app.use(helmet());
 const corsOptions = {
   origin: "*",
@@ -25,12 +24,9 @@ app.use(requestLogger);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
 app.use(limiter);
 app.use(routes);
 app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
-app.listen(PORT, () => {
-
-});
+app.listen(PORT, () => {});
