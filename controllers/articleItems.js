@@ -3,9 +3,11 @@ const NotFoundError = require("../errors/NotFoundError");
 const ForbiddenError = require("../errors/ForbiddenError");
 const BadRequestError = require("../errors/BadRequestError");
 
-module.exports.getArticle = (req, res, next) => {
-  Item.find({})
-    .then((items) => res.send(items))
+module.exports.getSavedArticles = (req, res, next) => {
+  const owner = req.user._id;
+
+  Item.find({ owner })
+    .then((articles) => res.send(articles))
     .catch((error) => {
       next(error);
     });
@@ -20,7 +22,7 @@ module.exports.removeArticle = async (req, res, next) => {
     })
     .then((item) => {
       if (String(item.owner) !== owner) {
-        next(
+        return next(
           new ForbiddenError(
             "You do not have permission to delete this resource"
           )
@@ -33,10 +35,10 @@ module.exports.removeArticle = async (req, res, next) => {
 };
 
 module.exports.addArticle = (req, res, next) => {
-  const { keyword, title, imageUrl, text, date, source, link } = req.body;
+  const { keyword, title, image, text, date, source, link } = req.body;
   const owner = req.user._id;
 
-  Item.create({ keyword, title, imageUrl, text, date, source, link, owner })
+  Item.create({ keyword, title, image, text, date, source, link, owner })
     .then((item) => {
       res.status(201);
       res.send({ data: item });

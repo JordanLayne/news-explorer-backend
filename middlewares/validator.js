@@ -23,13 +23,10 @@ const nameValidation = Joi.string().required().min(2).max(30).messages({
   "string.empty": 'The "name" field must be filled in',
 });
 
-const imageUrlValidation = Joi.string()
-  .required()
-  .custom(validateUrl)
-  .messages({
-    "string.empty": 'The "imageUrl" field must be filled in',
-    "string.uri": 'The "imageUrl" field must be a valid url',
-  });
+const imageValidation = Joi.string().required().custom(validateUrl).messages({
+  "string.empty": 'The "imageUrl" field must be filled in',
+  "string.uri": 'The "imageUrl" field must be a valid url',
+});
 
 const emailValidation = Joi.string().required().custom(validateEmail).messages({
   "string.empty": 'The "email" field must be filled in',
@@ -41,12 +38,9 @@ const passwordValidation = Joi.string().required().messages({
 });
 const articleSchemaValidation = {
   keyword: nameValidation,
-  imageUrl: imageUrlValidation,
+  image: imageValidation,
   title: Joi.string().required().messages({
     "string.empty": 'The "title" field must be filled in',
-  }),
-  owner: Joi.string().required().messages({
-    "string.empty": 'The "owner" field must be filled in',
   }),
   text: Joi.string().required().messages({
     "string.empty": 'The "text" field must be filled in',

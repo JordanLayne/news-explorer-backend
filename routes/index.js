@@ -9,7 +9,7 @@ const {
   validateUserInfo,
 } = require("../middlewares/validator");
 
-router.use("/items", articleItem);
+router.use("/articles", articleItem);
 
 router.use("/users", auth, users);
 
@@ -17,7 +17,7 @@ router.post("/signin", validateUserLogin, login);
 
 router.post("/signup", validateUserInfo, createUser);
 
-router.use(() => {
+router.use(auth, () => {
   throw new NotFoundError("This route does not exist");
 });
 
