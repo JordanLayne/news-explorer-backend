@@ -35,10 +35,10 @@ module.exports.removeArticle = async (req, res, next) => {
 };
 
 module.exports.addArticle = (req, res, next) => {
-  const { keyword, title, image, text, date, source, link } = req.body;
+  const { keyword, title, image, text, date, source, link,id } = req.body;
   const owner = req.user._id;
 
-  Item.create({ keyword, title, image, text, date, source, link, owner })
+  Item.create({ keyword, title, image, text, date, source, link, owner,id })
     .then((item) => {
       res.status(201);
       res.send({ data: item });
