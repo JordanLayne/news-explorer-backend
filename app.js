@@ -10,9 +10,9 @@ const { requestLogger, errorLogger } = require("./middlewares/logger");
 const errorHandler = require("./middlewares/errorMiddleware");
 const routes = require("./routes/index");
 
-const { PORT = 3000, MONGODB_URI } = process.env;
+const { PORT = 3000 } = process.env;
 
-mongoose.connect(MONGODB_URI);
+mongoose.connect("mongodb://127.0.0.1:27017/newsExplorer_db");
 const app = express();
 
 app.use(helmet());
